@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker buildx -f Dockerfile --platform linux/arm64,linux/arm/v8,linux/arm/v8,linux/amd64 --tag lucasmartins/aws-mfa:$(date +%s) --push .
+      run: docker buildx build -f Dockerfile --platform linux/arm64,linux/arm/v8,linux/arm/v8,linux/amd64 --tag lucasmartins/aws-mfa:$(date +%s) --push .
