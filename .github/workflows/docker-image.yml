@@ -12,7 +12,8 @@ jobs:
     env:
       DOCKER_REGISTRY: docker.io
       DOCKER_IMAGE: lucasmartins/aws-mfa
-
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     steps:
     - uses: actions/checkout@v3
 
@@ -21,7 +22,7 @@ jobs:
       with:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_TOKEN }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
