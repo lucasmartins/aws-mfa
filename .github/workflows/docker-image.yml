@@ -7,12 +7,24 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: docker.io
+      DOCKER_IMAGE: lucasmartins/aws-mfa
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      #DOCKER_TARGET_PLATFORM: linux/arm/v8
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
     - name: Build the Docker image
       run: docker buildx build -f Dockerfile --platform linux/arm64,linux/arm/v8,linux/arm/v8,linux/amd64 --tag lucasmartins/aws-mfa:$(date +%s) --push .
+
